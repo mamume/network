@@ -1,9 +1,15 @@
 {% extends 'network/layout.html' %}
 
 {% block body %}
-  <figure class="text-center">
-    <h1>Followed Users' Posts</h1>
-  </figure>
+  {% if user.is_authenticated %}
+    <figure class="text-center">
+      <h1>Followed Users' Posts</h1>
+    </figure>
 
     {% include 'network/posts.html' %}
+  {% else %}
+    <figure class="text-center">
+      <h1>You must login first, click <a href={% url 'login' %}>here</a> to login</h1>
+    </figure>
+  {% endif %}
 {% endblock body %}
