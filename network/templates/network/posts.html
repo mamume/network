@@ -7,13 +7,14 @@
     <div class="card container">
       <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
       {% if request.user == post.owner %}
-        <a href="#">Edit</a>
+        <a href="#edit" class="edit-link">Edit</a>
+        <input class="post-id" type="hidden" value={{ post.id }} />
       {% endif %}
-      <div>{{ post.text }}</div>
+      <div class="post-text">{{ post.text }}</div>
       <div class="text-secondary">
           <div>{{ post.created_at }}</div>
           <div>💖 {{ post.likes.count }}</div>
-          <div>comment</div>
+          <div>Comment</div>
       </div>
     </div>
   {% endfor %}
@@ -37,3 +38,27 @@
   </nav>
 {% endif %}
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    editLinks = document.querySelectorAll('.edit-link')
+
+    for (const editLink of editLinks) {
+      editLink.addEventListener('click', () => {
+        const parent = editLink.parentNode
+        const postText = parent.querySelector('.post-text').innerText
+        const postId = parent.querySelector(".post-id").value
+
+        parent.innerHTML = `
+          <form action={% url 'edit-post' postId %} method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="edit-post" class="form-label">Edit Post</label>
+                <textarea id="edit-post" name="post" class="form-control" rows="3">${postText}</textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Edit">
+          </form>
+        `
+      })
+    }
+  })
+</script>
