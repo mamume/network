@@ -124,8 +124,10 @@ def unfollow(request, id):
 
 
 def following(request):
-    print(User.objects.filter(followers__id=request.user.id))
+    followed_users = User.objects.filter(followers__id=request.user.id)
+    posts = Post.objects.filter(owner__in=followed_users)
+    print(posts)
 
     return render(request, 'network/following.html', context={
-        # 'posts': posts
+        'posts': posts
     })
