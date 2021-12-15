@@ -4,6 +4,7 @@
     <div class="container">
         <h1>All Posts</h1>
 
+        {% if user.is_authenticated %}
         <div class="card">
             {% comment %} <div class="container">
                 New Post
@@ -16,5 +17,6 @@
                 <button type="button" class="btn btn-primary">POST</button>
             </div>
         </div>
+        {% endif %}
     </div>
 {% endblock %}
