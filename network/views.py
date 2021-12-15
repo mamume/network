@@ -89,9 +89,13 @@ def create_post(request):
 
 def profile(request, id):
     user = User.objects.get(pk=id)
-    following_count = User.objects.all().filter(followers__id=id).count()
+    following_count = User.objects.filter(followers__id=id).count()
 
     isLoggedUserProfile = id == request.user.id
+
+    followed = False
+    if not isLoggedUserProfile:
+        followed = User.objects.get(pk=id).followers.filter(id=request.user.id)
 
     # Get User Posts
     posts = Post.objects.filter(owner__id=id)
@@ -101,8 +105,13 @@ def profile(request, id):
         "following_count": following_count,
         "posts": posts,
         "isLoggedUserProfile": isLoggedUserProfile,
+        "followed": followed
     })
 
 
 def follow(request, id):
     return HttpResponse(id)
+
+
+def unfollow(request, id):
+    pass
