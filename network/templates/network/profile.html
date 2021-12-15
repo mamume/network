@@ -6,7 +6,9 @@
     <h1>{{profile_user.username}}</h1>
     <div>Followers: {{ profile_user.followers.count }}</div>
     <div>Following: {{ following_count }}</div>
-
+    <form action={% url 'follow' profile_user.id %} method='POST'>
+      <input type='submit' value='follow' />
+    </form>
   </figure>
   {% include 'network/posts.html' %}
 </div>
