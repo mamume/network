@@ -89,7 +89,9 @@ def create_post(request):
 
 def profile(request, id):
     user = User.objects.get(pk=id)
+    following_count = User.objects.all().filter(followers__id=id).count()
 
     return render(request, 'network/profile.html', context={
-        "profile_user": user
+        "profile_user": user,
+        "following_count": following_count
     })
