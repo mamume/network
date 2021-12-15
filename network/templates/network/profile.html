@@ -1,5 +1,9 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-
+<figure class="text-center">
+  <h1>{{profile_user.username}}</h1>
+  <div>Followers: {{ profile_user.followers.count }}</div>
+  <div>Following: </div>
+</figure>
 {% endblock %}

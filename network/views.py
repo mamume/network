@@ -91,5 +91,5 @@ def profile(request, id):
     user = User.objects.get(pk=id)
 
     return render(request, 'network/profile.html', context={
-        "user": user
+        "profile_user": user
     })
