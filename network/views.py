@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http.response import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.core.paginator import Paginator
 
@@ -136,3 +137,14 @@ def following(request):
     return render(request, 'network/following.html', context={
         'posts': posts
     })
+
+
+def edit(request):
+    edited_text = request.POST.get('edited-text')
+    postId = request.POST.get('postId')
+
+    post = get_object_or_404(Post, pk=postId)
+    post.text = edited_text
+    post.save()
+
+    return HttpResponseRedirect(reverse(index))

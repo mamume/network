@@ -49,11 +49,12 @@
         const postId = parent.querySelector(".post-id").value
 
         parent.innerHTML = `
-          <form action={% url 'edit-post' postId %} method="POST">
+          <form action={% url 'edit' %} method="POST">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="edit-post" class="form-label">Edit Post</label>
-                <textarea id="edit-post" name="post" class="form-control" rows="3">${postText}</textarea>
+              <label for="edit-post" class="form-label">Edit Post</label>
+              <textarea id="edit-post" name="edited-text" class="form-control" rows="3">${postText}</textarea>
+              <input type="hidden" name="postId" value=${postId} />
             </div>
             <input type="submit" class="btn btn-primary" value="Edit">
           </form>
