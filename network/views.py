@@ -121,3 +121,11 @@ def unfollow(request, id):
     user.followers.remove(request.user)
 
     return HttpResponseRedirect(f'/profile/{id}')
+
+
+def following(request):
+    print(User.objects.filter(followers__id=request.user.id))
+
+    return render(request, 'network/following.html', context={
+        # 'posts': posts
+    })
