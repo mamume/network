@@ -91,7 +91,11 @@ def profile(request, id):
     user = User.objects.get(pk=id)
     following_count = User.objects.all().filter(followers__id=id).count()
 
+    # Get User Posts
+    posts = Post.objects.filter(owner__id=id)
+
     return render(request, 'network/profile.html', context={
         "profile_user": user,
-        "following_count": following_count
+        "following_count": following_count,
+        "posts": posts
     })

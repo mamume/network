@@ -20,17 +20,6 @@
         </div>
         {% endif %}
 
-        {% for post in posts %}
-            <div class="card container">
-                <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
-                <a href="#">Edit</a>
-                <div>{{ post.text }}</div>
-                <div class="text-secondary">
-                    <div>{{ post.created_at }}</div>
-                    <div>💖 {{ post.likes.count }}</div>
-                    <div>comment</div>
-                </div>
-            </div>
-        {% endfor %}
+        {% include 'network/posts.html' %}
     </div>
 {% endblock %}
