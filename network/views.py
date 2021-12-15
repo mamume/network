@@ -66,8 +66,17 @@ def register(request):
 def create_post(request):
     if request.method == "POST":
         post_text = request.POST.get("post")
+        message = ""
 
-        post = Post.objects.create(text=post_text, owner=request.user)
-        post.save()
+        if post_text == "":
+            message = "Cannot create empty post"
+        else:
+            try:
+                post = Post.objects.create(text=post_text, owner=request.user)
+                post.save()
+            except Exception as e:
+                message = e
 
-        return HttpResponseRedirect(reverse("index"))
+        return render(request, "network/index.html", context={
+            "message": message
+        })
