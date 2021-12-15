@@ -85,3 +85,7 @@ def create_post(request):
         return render(request, "network/index.html", context={
             "message": message
         })
+
+
+def profile(request, id):
+    return HttpResponse(id)
