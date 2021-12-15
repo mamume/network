@@ -99,3 +99,7 @@ def profile(request, id):
         "following_count": following_count,
         "posts": posts
     })
+
+
+def follow(request, id):
+    return HttpResponse(id)
