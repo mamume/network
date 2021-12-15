@@ -6,10 +6,16 @@
     <h1>{{profile_user.username}}</h1>
     <div>Followers: {{ profile_user.followers.count }}</div>
     <div>Following: {{ following_count }}</div>
-    {% if user.id != profile_user.id %}
-      <form action={% url 'follow' profile_user.id %}>
-        <input type="submit" class="btn btn-primary" value="Follow">
-      </form>
+    {% if not isLoggedUserProfile %}
+      {% if user in profile_user.followers %}
+        <form action={% url 'unfollow' profile_user.id %}>
+          <input type="submit" class="btn btn-primary" value="Unfollow">
+        </form>
+      {% else %}
+        <form action={% url 'follow' profile_user.id %}>
+          <input type="submit" class="btn btn-primary" value="Follow">
+        </form>
+      {% endif %}
     {% endif %}
   </figure>
   {% include 'network/posts.html' %}
