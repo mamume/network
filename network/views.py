@@ -88,4 +88,4 @@ def create_post(request):
 
 
 def profile(request, id):
-    return HttpResponse(id)
+    return render(request, 'network/profile.html')
