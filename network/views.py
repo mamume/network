@@ -88,4 +88,8 @@ def create_post(request):
 
 
 def profile(request, id):
-    return render(request, 'network/profile.html')
+    user = User.objects.get(pk=id)
+
+    return render(request, 'network/profile.html', context={
+        "user": user
+    })
