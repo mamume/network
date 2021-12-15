@@ -8,7 +8,11 @@ from .models import Post, User
 
 
 def index(request):
-    return render(request, "network/index.html")
+    posts = Post.objects.all()
+
+    return render(request, "network/index.html", context={
+        "posts": posts
+    })
 
 
 def login_view(request):

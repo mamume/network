@@ -19,5 +19,18 @@
             </div>
         </div>
         {% endif %}
+
+        {% for post in posts %}
+            <div class="card container">
+                <div><b>{{ post.owner }}</b></div>
+                <a href="#">Edit</a>
+                <div>{{ post.text }}</div>
+                <div class="text-secondary">
+                    <div>{{ post.created_at }}</div>
+                    <div>💖 {{ post.likes.count }}</div>
+                    <div>comment</div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
