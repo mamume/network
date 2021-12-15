@@ -122,4 +122,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DEAFULT_AUTO_FIELD = models.BigAutoField
+DEFAULT_AUTO_FIELD = models.BigAutoField
