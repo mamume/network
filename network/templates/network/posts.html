@@ -6,7 +6,9 @@
   {% for post in page_obj %}
     <div class="card container">
       <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
-      <a href="#">Edit</a>
+      {% if request.user == post.owner %}
+        <a href="#">Edit</a>
+      {% endif %}
       <div>{{ post.text }}</div>
       <div class="text-secondary">
           <div>{{ post.created_at }}</div>
