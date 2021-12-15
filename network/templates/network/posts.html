@@ -1,9 +1,9 @@
-{% if not posts %}
+{% if not page_obj %}
   <div class="card container">
     <div><strong>No Posts found</strong></div>
   </div>
 {% else %}
-  {% for post in posts %}
+  {% for post in page_obj %}
     <div class="card container">
       <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
       <a href="#">Edit</a>
@@ -15,5 +15,36 @@
       </div>
     </div>
   {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
+  {% comment %} {% for post in posts %}
+    <div class="card container">
+      <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
+      <a href="#">Edit</a>
+      <div>{{ post.text }}</div>
+      <div class="text-secondary">
+          <div>{{ post.created_at }}</div>
+          <div>💖 {{ post.likes.count }}</div>
+          <div>comment</div>
+      </div>
+    </div>
+  {% endfor %} {% endcomment %}
 {% endif %}
 
