@@ -110,7 +110,10 @@ def profile(request, id):
 
 
 def follow(request, id):
-    return HttpResponse(id)
+    user = User.objects.get(pk=id)
+    user.followers.add(request.user)
+
+    return HttpResponseRedirect(f'/profile/{id}')
 
 
 def unfollow(request, id):
