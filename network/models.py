@@ -14,6 +14,9 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name="liked_posts")
     # comments = models.ManyToManyField(User, related_name="commented_posts")
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class Comment(models.Model):
     owner = models.ManyToManyField(User)
