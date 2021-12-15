@@ -78,6 +78,7 @@ def create_post(request):
             try:
                 post = Post.objects.create(text=post_text, owner=request.user)
                 post.save()
+                return HttpResponseRedirect(reverse("index"))
             except Exception as e:
                 message = e
 
