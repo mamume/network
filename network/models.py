@@ -12,7 +12,6 @@ class Post(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name="liked_posts")
-    # comments = models.ManyToManyField(User, related_name="commented_posts")
 
     class Meta:
         ordering = ['-created_at']
