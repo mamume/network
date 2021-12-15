@@ -117,4 +117,7 @@ def follow(request, id):
 
 
 def unfollow(request, id):
-    pass
+    user = User.objects.get(pk=id)
+    user.followers.remove(request.user)
+
+    return HttpResponseRedirect(f'/profile/{id}')
