@@ -17,7 +17,7 @@
       <div class='post-text'>{{ post.text }}</div>
       <div class='text-secondary'>
           <div>{{ post.created_at }}</div>
-          <div>💖 {{ post.likes.count }}</div>
+          <div id="post-{{ post.id }}-likes">💖 {{ post.likes.count }}</div>
           <a href="#like" onclick="handleLike({{ post.id }})">Like</a>
       </div>
     </div>
