@@ -18,7 +18,11 @@
       <div class='text-secondary'>
           <div>{{ post.created_at }}</div>
           <div id="post-{{ post.id }}-likes">💖 {{ post.likes.count }}</div>
-          <a href="#like" onclick="handleLike({{ post.id }})">Like</a>
+          {% if request.user in post.likes.all %}
+            <a href="#unlike" onclick="handleUnlike({{ post.id }})">Unlike</a>
+          {% else %}
+            <a href="#like" onclick="handleLike({{ post.id }})">Like</a>
+          {% endif %}
       </div>
     </div>
   {% endfor %}
