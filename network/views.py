@@ -166,4 +166,9 @@ def edit(request):
 
 
 def like(request, post_id):
-    pass
+    post = get_object_or_404(Post, pk=post_id)
+
+    post.likes.add(request.user)
+    post.save()
+
+    return HttpResponse(post.likes.count())
