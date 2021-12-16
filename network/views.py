@@ -1,7 +1,8 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
-from django.http.response import Http404, HttpResponse
+from django.http.response import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.core.paginator import Paginator
@@ -140,11 +141,15 @@ def following(request):
 
 
 def edit(request):
-    edited_text = request.POST.get('edited-text')
-    postId = request.POST.get('postId')
+    data = json.loads(request.body)
+    postId = data.get('id')
+    edited_text = data.get('text')
 
     post = get_object_or_404(Post, pk=postId)
     post.text = edited_text
     post.save()
 
-    return HttpResponseRedirect(reverse(index))
+    return JsonResponse({
+        'edited_text': edited_text,
+        'postId': postId
+    })
