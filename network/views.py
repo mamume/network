@@ -143,10 +143,10 @@ def following(request):
 def edit(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        postId = data.get('id')
+        post_id = data.get('id')
         edited_text = data.get('text')
 
-        post = get_object_or_404(Post, pk=postId)
+        post = get_object_or_404(Post, pk=post_id)
         if post.owner == request.user:
             post.text = edited_text
             post.save()
@@ -163,3 +163,7 @@ def edit(request):
         return HttpResponseNotAllowed("Not Allowed")
 
     return Http404("Not Found")
+
+
+def like(request, post_id):
+    pass
