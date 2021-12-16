@@ -2,12 +2,10 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
-from django.http.response import Http404, HttpResponse, JsonResponse
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.core.paginator import Paginator
-
-from network.serializers import PostSerializer
 
 from .models import Post, User
 
