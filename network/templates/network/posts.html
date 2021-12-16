@@ -17,7 +17,7 @@
       <div class='text-secondary'>
           <div>{{ post.created_at }}</div>
           <div>💖 {{ post.likes.count }}</div>
-          <div>Comment</div>
+          <a href="#" onclick="handleLike({{ post.id }})">Like</a>
       </div>
     </div>
   {% endfor %}
