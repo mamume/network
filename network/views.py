@@ -2,7 +2,7 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
-from django.http.response import JsonResponse
+from django.http.response import Http404, HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.core.paginator import Paginator
@@ -141,19 +141,25 @@ def following(request):
 
 
 def edit(request):
-    data = json.loads(request.body)
-    postId = data.get('id')
-    edited_text = data.get('text')
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        postId = data.get('id')
+        edited_text = data.get('text')
 
-    post = get_object_or_404(Post, pk=postId)
-    post.text = edited_text
-    post.save()
+        post = get_object_or_404(Post, pk=postId)
+        if post.owner == request.user:
+            post.text = edited_text
+            post.save()
 
-    return JsonResponse({
-        "text": post.text,
-        "owner_id": post.owner.id,
-        "owner_username": post.owner.username,
-        "post_id": post.id,
-        "created_at": post.created_at.strftime("%b. %d, %Y, %I:%M %P."),
-        "likes_count": post.likes.count()
-    })
+            return JsonResponse({
+                "text": post.text,
+                "owner_id": post.owner.id,
+                "owner_username": post.owner.username,
+                "post_id": post.id,
+                "created_at": post.created_at.strftime("%b. %d, %Y, %I:%M %P."),
+                "likes_count": post.likes.count()
+            })
+
+        return HttpResponseNotAllowed("Not Allowed")
+
+    return Http404("Not Found")
