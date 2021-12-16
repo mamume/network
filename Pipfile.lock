@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cb422cf9a26d4bce2e195c5d55ef5073fe5b4fbd580bb3e6451d00a88cc86cb9"
+            "sha256": "4f1bad28523b264fb80720970805907b683f8eec7f9f49ae35639117a58cf109"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -48,21 +48,13 @@
             "index": "pypi",
             "version": "==21.1"
         },
-        "djangorestframework": {
-            "hashes": [
-                "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee",
-                "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"
-            ],
-            "index": "pypi",
-            "version": "==3.13.1"
-        },
         "importlib-metadata": {
             "hashes": [
-                "sha256:53ccfd5c134223e497627b9815d5030edf77d2ed573922f7a0b8f8bb81a1c100",
-                "sha256:75bdec14c397f528724c1bfd9709d660b33a4d2e77387a3358f20b848bb5e5fb"
+                "sha256:65a9576a5b2d58ca44d133c42a241905cc45e34d2c06fd5ba2bafa221e5d7b5e",
+                "sha256:766abffff765960fcc18003801f7044eb6755ffae4521c8e8ce8e83b9c9b0668"
             ],
             "markers": "python_version < '3.10'",
-            "version": "==4.8.2"
+            "version": "==4.8.3"
         },
         "markdown": {
             "hashes": [
@@ -71,13 +63,6 @@
             ],
             "index": "pypi",
             "version": "==3.3.6"
-        },
-        "pytz": {
-            "hashes": [
-                "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c",
-                "sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"
-            ],
-            "version": "==2021.3"
         },
         "sqlparse": {
             "hashes": [
