@@ -172,3 +172,12 @@ def like(request, post_id):
     post.save()
 
     return HttpResponse(post.likes.count())
+
+
+def unlike(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+
+    post.likes.remove(request.user)
+    post.save()
+
+    return HttpResponse(post.likes.count())
