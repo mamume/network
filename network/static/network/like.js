@@ -5,3 +5,11 @@ function handleLike(postId) {
       document.querySelector(`#post-${postId}-likes`).innerText = `💖 ${likesCount}`
     })
 }
+
+function handleUnlike(postId) {
+  fetch(`http://localhost:8000/unlike/${postId}`)
+    .then(request => request.json())
+    .then(likesCount => {
+      document.querySelector(`#post-${postId}-likes`).innerText = `💖 ${likesCount}`
+    })
+}
