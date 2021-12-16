@@ -14,8 +14,7 @@ function getCookie(name) {
   return decodeURIComponent(xsrfCookies[0].split('=')[1]);
 }
 
-function editPost(postId, parent) {
-  console.log(parent)
+function editPost(postId) {
   editedText = document.querySelector(`#edit-post-${postId}`).value.trim()
   data = {
     id: postId,
@@ -32,41 +31,47 @@ function editPost(postId, parent) {
     body: JSON.stringify(data),
   })
     .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      // parent.innerHTML = `
-      //   <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
-      //   {% if request.user == post.owner %}
-      //     <a href="#edit" class="edit-link">Edit</a>
-      //     <input class="post-id" type="hidden" value={{ post.id }} />
-      //   {% endif %}
-      //   <div class="post-text">{{ post.text }}</div>
-      //   <div class="text-secondary">
-      //       <div>{{ post.created_at }}</div>
-      //       <div>💖 {{ post.likes.count }}</div>
-      //       <div>Comment</div>
-      //   </div>
-      // `
+    .then(({ likes_count, owner_id, owner_username, post_id, text, created_at }) => {
+      console.log(created_at)
+      const editAnchor = document.createElement("a")
+      editAnchor.innerText = "Edit"
+      editAnchor.addEventListener("click", (e, created_at) => handleEdit(e, created_at))
+      editAnchor.setAttribute('href', "#edit")
+      console.log(String(editAnchor))
+
+      const postCard = document.querySelector(`#post-card-${postId}`)
+      const frag = document.createRange().createContextualFragment(`
+        <a href='http://localhost:8000/profile/${owner_id}'><b>${owner_username}</b></a>
+      `)
+      frag.appendChild(editAnchor)
+      const frag2 = document.createRange().createContextualFragment(`
+        <input class="post-id" type="hidden" value=${post_id} />
+          <div class="post-text">${text}</div>
+          <div class="text-secondary">
+            <div>${created_at}</div>
+            <div>💖 ${likes_count}</div>
+            <div>Comment</div>
+        </div>
+      `)
+      postCard.replaceChildren(frag)
+      postCard.appendChild(frag2)
     })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  editLinks = document.querySelectorAll('.edit-link').forEach(editLink => {
-    editLink.addEventListener('click', () => {
-      const parent = editLink.parentNode
-      const postText = parent.querySelector('.post-text').innerText
-      const postId = parent.querySelector(".post-id").value
+function handleEdit(e) {
+  editLink = e.target
+  const parent = editLink.parentNode
+  const postText = parent.querySelector('.post-text').innerText
+  const postId = parent.querySelector(".post-id").value
 
-      parent.innerHTML = `
-          <div class="mb-3">
-            <label for="edit-post-${postId}" class="form-label">Edit Post</label>
-            <textarea id="edit-post-${postId}" name="edited-text" class="form-control" rows="3">
-              ${postText}
-            </textarea>
-            <input type="hidden" name="postId" value=${postId} />
-          </div>
-          <button onclick="editPost(${postId})" class="btn btn-primary">Save</button>
-      `
-    })
-  })
-})
+  parent.innerHTML = `
+    <div class="mb-3">
+      <label for="edit-post-${postId}" class="form-label">Edit Post</label>
+      <textarea id="edit-post-${postId}" name="edited-text" class="form-control" rows="3">
+        ${postText}
+      </textarea>
+      <input type="hidden" name="postId" value=${postId} />
+    </div>
+    <button onclick='editPost(${postId})' class="btn btn-primary">Save</button>
+  `
+}

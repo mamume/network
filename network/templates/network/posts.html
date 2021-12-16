@@ -7,14 +7,14 @@
   </div>
 {% else %}
   {% for post in page_obj %}
-    <div class="card container" id='post-card-{{post.id}}'>
+    <div class='card container' id='post-card-{{post.id}}'>
       <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
       {% if request.user == post.owner %}
-        <a href="#edit" class="edit-link">Edit</a>
-        <input class="post-id" type="hidden" value={{ post.id }} />
+        <a href='#edit' class='edit-link' onclick='handleEdit(event)'>Edit</a>
+        <input class='post-id' type='hidden' value={{ post.id }} />
       {% endif %}
-      <div class="post-text">{{ post.text }}</div>
-      <div class="text-secondary">
+      <div class='post-text'>{{ post.text }}</div>
+      <div class='text-secondary'>
           <div>{{ post.created_at }}</div>
           <div>💖 {{ post.likes.count }}</div>
           <div>Comment</div>

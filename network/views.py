@@ -156,6 +156,6 @@ def edit(request):
         "owner_id": post.owner.id,
         "owner_username": post.owner.username,
         "post_id": post.id,
-        "created_at": post.created_at,
+        "created_at": post.created_at.strftime("%b. %d, %Y, %I:%M %P."),
         "likes_count": post.likes.count()
     })
