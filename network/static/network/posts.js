@@ -15,6 +15,7 @@ function getCookie(name) {
 }
 
 function editPost(postId, parent) {
+  console.log(parent)
   editedText = document.querySelector(`#edit-post-${postId}`).value.trim()
   data = {
     id: postId,
@@ -32,26 +33,25 @@ function editPost(postId, parent) {
   })
     .then(res => res.json())
     .then(data => {
-      parent.innerHTML = `
-        <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
-        {% if request.user == post.owner %}
-          <a href="#edit" class="edit-link">Edit</a>
-          <input class="post-id" type="hidden" value={{ post.id }} />
-        {% endif %}
-        <div class="post-text">{{ post.text }}</div>
-        <div class="text-secondary">
-            <div>{{ post.created_at }}</div>
-            <div>💖 {{ post.likes.count }}</div>
-            <div>Comment</div>
-        </div>
-      `
+      console.log(data)
+      // parent.innerHTML = `
+      //   <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
+      //   {% if request.user == post.owner %}
+      //     <a href="#edit" class="edit-link">Edit</a>
+      //     <input class="post-id" type="hidden" value={{ post.id }} />
+      //   {% endif %}
+      //   <div class="post-text">{{ post.text }}</div>
+      //   <div class="text-secondary">
+      //       <div>{{ post.created_at }}</div>
+      //       <div>💖 {{ post.likes.count }}</div>
+      //       <div>Comment</div>
+      //   </div>
+      // `
     })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  editLinks = document.querySelectorAll('.edit-link')
-
-  for (const editLink of editLinks) {
+  editLinks = document.querySelectorAll('.edit-link').forEach(editLink => {
     editLink.addEventListener('click', () => {
       const parent = editLink.parentNode
       const postText = parent.querySelector('.post-text').innerText
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </textarea>
             <input type="hidden" name="postId" value=${postId} />
           </div>
-          <button onclick="editPost(${postId}, ${parent})" class="btn btn-primary">Save</button>
+          <button onclick="editPost(${postId})" class="btn btn-primary">Save</button>
       `
     })
-  }
+  })
 })

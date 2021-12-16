@@ -7,7 +7,7 @@
   </div>
 {% else %}
   {% for post in page_obj %}
-    <div class="card container">
+    <div class="card container" id='post-card-{{post.id}}'>
       <a href={% url 'profile' post.owner.id %}><b>{{ post.owner }}</b></a>
       {% if request.user == post.owner %}
         <a href="#edit" class="edit-link">Edit</a>

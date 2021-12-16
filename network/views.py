@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.core.paginator import Paginator
 
+from network.serializers import PostSerializer
+
 from .models import Post, User
 
 
@@ -150,6 +152,10 @@ def edit(request):
     post.save()
 
     return JsonResponse({
-        'edited_text': edited_text,
-        'postId': postId
+        "text": post.text,
+        "owner_id": post.owner.id,
+        "owner_username": post.owner.username,
+        "post_id": post.id,
+        "created_at": post.created_at,
+        "likes_count": post.likes.count()
     })
