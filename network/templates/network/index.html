@@ -1,0 +1,25 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <div class="container">
+        <div>{{ message }}</div>
+        <h1>All Posts</h1>
+
+        {% if user.is_authenticated %}
+        <div class="card">
+            <div class="container">
+                <form action={% url 'create_post' %} method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="new-post" class="form-label">New Post</label>
+                        <textarea name="post" class="form-control" id="new-post" rows="3"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="POST">
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        {% include 'network/posts.html' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+  <figure class="text-center">
+    <h1>{{profile_user.username}}</h1>
+    <div>Followers: {{ profile_user.followers.count }}</div>
+    <div>Following: {{ following_count }}</div>
+    {% if not isLoggedUserProfile and user.is_authenticated %}
+      {% if followed %}
+        <form action={% url 'unfollow' profile_user.id %}>
+          <input type="submit" class="btn btn-primary" value="Unfollow">
+        </form>
+      {% else %}
+        <form action={% url 'follow' profile_user.id %}>
+          <input type="submit" class="btn btn-primary" value="Follow">
+        </form>
+      {% endif %}
+    {% endif %}
+  </figure>
+  {% include 'network/posts.html' %}
+</div>
+{% endblock %}
