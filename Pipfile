@@ -9,6 +9,7 @@ django-extensions = "*"
 werkzeug = "*"
 markdown = "*"
 django-filter = "*"
+submit50 = "*"
 
 [dev-packages]
 autopep8 = "*"
