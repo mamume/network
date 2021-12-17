@@ -18,13 +18,15 @@
       <div class='text-secondary'>
           <div>{{ post.created_at }}</div>
           <div id="post-{{ post.id }}-likes">💖 {{ post.likes.count }}</div>
-          <div id="post-{{ post.id }}-like-container">
-            {% if request.user in post.likes.all %}
-              <a id='post-{{ post.id }}-unlike-btn' href="#unlike" onclick="handleUnlike({{ post.id }})">Unlike</a>
-            {% else %}
-              <a id='post-{{ post.id }}-like-btn' href="#like" onclick="handleLike({{ post.id }})">Like</a>
-            {% endif %}
-          </div>
+          {% if user.is_authenticated %}
+            <div id="post-{{ post.id }}-like-container">
+              {% if request.user in post.likes.all %}
+                <a id='post-{{ post.id }}-unlike-btn' href="#unlike" onclick="handleUnlike({{ post.id }})">Unlike</a>
+              {% else %}
+                <a id='post-{{ post.id }}-like-btn' href="#like" onclick="handleLike({{ post.id }})">Like</a>
+              {% endif %}
+            </div>
+          {% endif %}
       </div>
     </div>
   {% endfor %}
