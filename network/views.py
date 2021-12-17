@@ -107,10 +107,15 @@ def profile(request, id):
     # Get User Posts
     posts = Post.objects.filter(owner__id=id)
 
+    # Pagination
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'network/profile.html', context={
         "profile_user": user,
         "following_count": following_count,
-        "posts": posts,
+        "page_obj": page_obj,
         "isLoggedUserProfile": isLoggedUserProfile,
         "followed": followed
     })
