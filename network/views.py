@@ -138,10 +138,14 @@ def unfollow(request, id):
 def following(request):
     followed_users = User.objects.filter(followers__id=request.user.id)
     posts = Post.objects.filter(owner__in=followed_users)
-    print(posts)
+
+    # Pagination
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'network/following.html', context={
-        'posts': posts
+        'page_obj': page_obj
     })
 
 
