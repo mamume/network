@@ -160,13 +160,16 @@ def edit(request):
             post.text = edited_text
             post.save()
 
+            liked = request.user in post.likes.all()
+
             return JsonResponse({
                 "text": post.text,
                 "owner_id": post.owner.id,
                 "owner_username": post.owner.username,
                 "post_id": post.id,
                 "created_at": post.created_at.strftime("%b. %d, %Y, %I:%M %P."),
-                "likes_count": post.likes.count()
+                "likes_count": post.likes.count(),
+                "liked": liked
             })
 
         return HttpResponseNotAllowed("Not Allowed")
