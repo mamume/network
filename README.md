@@ -9,7 +9,8 @@ A social network that allows users to make posts, follow other users, and “lik
 ## Installation
 
  ```bash
- pip install -r requirement.txt
+ pip install pipenv
+ pipenv install --dev
  ```
 
 ## Database Processing
